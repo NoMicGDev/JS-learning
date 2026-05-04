@@ -12,7 +12,7 @@ let loginMessage = document.getElementById("loginMessage");
 
 // redirect falls der benutzer schon eingeloggt ist
 if ( localStorage.getItem("loggedIn") === "true" || sessionStorage.getItem("loggedIn") === "true" ) {
-   window.location.href = "/html/index.html";
+   window.location.href = "/html/welcome.html";
 }
 
 
@@ -25,18 +25,25 @@ loginBtn.addEventListener("click", function() {
    if ( usernameInput.value === "NomicGDev" && passwordInput.value === "999" ) {
       if (rememberMe.checked) {
       localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("username", usernameInput.value);
       } else {
          sessionStorage.setItem("loggedIn", "true");
+         sessionStorage.setItem("username", usernameInput.value);
       }
-    loginMessage.style.color = "LimeGreen";
-    loginMessage.textContent = " Login Erfolgreich!"
-    window.location.href = "/html/index.html";
+    loginMessage.style.color = "lime-green";
+    loginMessage.textContent = "Login erfolgreich!";
+    window.location.href = "/html/welcome.html";
    } else if ( usernameInput.value === "" || passwordInput.value === "" ) {
-    loginMessage.textContent = "Bitte alles ausfüllen!";
     loginMessage.style.color = "orange";
+    loginMessage.textContent = "Bitte alles ausfüllen!";
    } else {
+    loginMessage.style.color = "Red";
     loginMessage.textContent = "Login fehlgeschlagen";
-    loginMessage.style.color = "red";
    }
 })
 
+document.addEventListener("keydown", function(e) {
+   if (e.key === "Enter" ) {
+      loginBtn.click()
+   }
+})

@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, #050814, #14091f, #05030a);
+  color: white;
+  font-family: Arial;
+}
+
+.welcomeContainer {
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+.welcomeContainer h1 {
+  font-size: 42px;
+  margin: 0;
+  text-shadow: 0 0 20px white;
+}
+
+.welcomeContainer h2 {
+  margin-top: 10px;
+  font-size: 32px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+
+  radial-gradient(rgba(255,255,255,1) 2px, transparent 3px) 10% 20%,
+  radial-gradient(rgba(255,255,255,1) 2px, transparent 3px) 30% 60%,
+  radial-gradient(rgba(255,255,255,1) 2px, transparent 3px) 70% 30%,
+  radial-gradient(rgba(255,255,255,1) 2px, transparent 3px) 80% 80%,
+  radial-gradient(rgba(255,255,255,1) 2px, transparent 3px) 50% 50%;
+
+  background-size: 200px 200px;
+  opacity: 0.9;
+
+  filter: drop-shadow( 0 0 6px white);
+  animation: starsMove 10s linear infinite;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(white 2px, transparent 3px) 20% 40%,
+    radial-gradient(white 2px, transparent 3px) 60% 70%,
+    radial-gradient(white 2px, transparent 3px) 80% 20%;
+
+  opacity: 0.7;
+  filter: blur(0.5px) drop-shadow(0 0 8px white );
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes starsMove {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.2;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+}

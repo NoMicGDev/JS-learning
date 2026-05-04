@@ -1,4 +1,8 @@
-if (localStorage.getItem("loggedIn") !== "true") {
+// Dashboard schützen: nur eingeloggte User dürfen rein
+if (
+    localStorage.getItem("loggedIn") !== "true" &&
+    sessionStorage.getItem("loggedIn") !== "true"
+) {
     window.location.href = "/html/login.html";
 }
 console.log("dashboard loaded");
@@ -206,6 +210,7 @@ glowBtn.addEventListener("click", function() {
 // Event für logOut button
 logOutBtn.addEventListener("click", function() {
     localStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("loggedIn"); 
     window.location.href = "/html/login.html";
 })
 
