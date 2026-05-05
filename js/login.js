@@ -8,7 +8,11 @@ let loginMessage = document.getElementById("loginMessage");
 
 // aktiviert funktion für die benutzer merken checkBox
 
-
+// Mehrere Benutzer ermöglichen
+let users = [
+   { name: "NomicGDev", password: "999" },
+   { name: "TestUser" , password: "1234" }
+];
 
 // redirect falls der benutzer schon eingeloggt ist
 if ( localStorage.getItem("loggedIn") === "true" || sessionStorage.getItem("loggedIn") === "true" ) {
@@ -22,7 +26,11 @@ loginBtn.addEventListener("click", function() {
    console.log(passwordInput.value);
 
    // Check ob leere eingaben getätigt werden
-   if ( usernameInput.value === "NomicGDev" && passwordInput.value === "999" ) {
+   for ( let i  = 0; i < users.length; i++) {
+      
+   
+
+   if ( usernameInput.value === users[i].name  && passwordInput.value === users[i].password  ) {
       if (rememberMe.checked) {
       localStorage.setItem("loggedIn", "true");
       localStorage.setItem("username", usernameInput.value);
@@ -39,6 +47,7 @@ loginBtn.addEventListener("click", function() {
    } else {
     loginMessage.style.color = "Red";
     loginMessage.textContent = "Login fehlgeschlagen";
+   }
    }
 })
 

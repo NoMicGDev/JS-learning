@@ -11,6 +11,8 @@ let focus = 0;
 let bugs = 0;
 let concepts = 0;
 let goal = 10;
+let seconds = 0;
+let interval = null;
 let body = document.body;
 
 // Views
@@ -23,6 +25,7 @@ let progressBar = document.getElementById("progressBar");
 let goalView = document.getElementById("goalView");
 let levelView = document.getElementById("levelView");
 let goalInput = document.getElementById("goalInput");
+let display = document.getElementById("timerDisplay");
 
 
 
@@ -39,6 +42,8 @@ let lightBtn = document.getElementById("lightBtn");
 let darkBtn = document.getElementById("darkBtn");
 let glowBtn = document.getElementById("glowBtn");
 let logOutBtn = document.getElementById("logOutBtn");
+let startTimerBtn = document.getElementById("startTimerBtn");
+let stopTimerBtn = document.getElementById("stopTimerBtn");
 
 
 
@@ -57,8 +62,8 @@ function loadData() {
     let savedConcepts = localStorage.getItem("concepts");
 
     let savedGoal = localStorage.getItem("goal");
-
-    if ( savedGoal !== null ) {
+   
+        if ( savedGoal !== null ) {
         goal = Number(savedGoal)
     }
 
@@ -72,6 +77,9 @@ function loadData() {
         concepts = Number(savedConcepts);
     }
 }
+
+ 
+
 
 // renderstats funktion
 function renderstats() {
@@ -189,6 +197,24 @@ setGoalBtn.addEventListener("click", function() {
     
 });
 
+// Funktion des Focus Timers
+startTimerBtn.addEventListener("click", function() {
+    if (interval !== null ) {
+        return;
+    }
+    interval = setInterval(function() {
+        seconds++;
+        display.textContent = seconds;
+    }, 1000 );
+});
+
+stopTimerBtn.addEventListener("click", function() {
+    clearInterval(interval);
+    interval = null;
+});
+
+
+
 // Toogle zum verstecken des settings panel
 settingsBtn.addEventListener("click", function() {
     settingsPanel.classList.toggle("hidden");
@@ -197,15 +223,38 @@ settingsBtn.addEventListener("click", function() {
 // events für die Buttons innerhalb des Setting panels
 lightBtn.addEventListener("click", function() {
     body.classList.add("light");
+    localStorage.setItem("theme", "light");
 })
 darkBtn.addEventListener("click", function() {
     body.classList.remove("light");
+    localStorage.setItem("theme", "dark");
 })
  
 glowBtn.addEventListener("click", function() {
     body.classList.toggle("no-glow");
+
+    if ( body.classList.contains("no-glow")) {
+        localStorage.setItem("glow", "off");
+    } else {
+        localStorage.setItem("glow", "on");
+    }
 })
 
+// loadSettings funktion
+function loadSettings() {
+    // Load für themes
+    if ( localStorage.getItem("theme") === "light" ) {
+        body.classList.add("light");
+    } else {
+        body.classList.remove("light");
+    }
+
+    if ( localStorage.getItem("glow") === "off") {
+        body.classList.add("no-glow");
+    } else {
+        body.classList.remove("no-glow");
+    }
+}
 
 // Event für logOut button
 logOutBtn.addEventListener("click", function() {
@@ -215,4 +264,5 @@ logOutBtn.addEventListener("click", function() {
 })
 
 loadData();
+loadSettings();
 renderstats();
